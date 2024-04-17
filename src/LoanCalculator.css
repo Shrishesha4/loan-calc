@@ -1,0 +1,69 @@
+.loan-calculator-container {
+    font-size: 18px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .form-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid gray;
+    padding: 2px;
+    padding-left: 10px;
+  }
+  
+  .form-action {
+    text-align: center;
+  }
+  
+  .calculate-button {
+    color: black;
+    cursor: pointer;
+    transition: opacity .15s ease-in-out,background-color .2s ease-in-out;
+  }
+  
+  .calculate-button:hover {
+    background-color: rgb(221, 165, 0);
+  }
+  
+  .form-input {
+    position: relative;
+  }
+  
+  .form-input input, .form-action input {
+    width: 90%;
+    border-radius: 3px;
+    border: 0px;
+    margin: 10px 0;
+    font-size: 16px;
+    background: #ffb624;
+  }
+  
+  .form-input input {
+    height: 32px;
+  }
+  
+  .form-action input {
+    font-weight: 600;
+    line-height: 40px;
+  }
+  
+  table {
+    width: auto;
+    border-spacing: 20;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: small;
+  }
+  
+  th, td {
+    border-bottom: 1px solid #e6e6e6;
+    padding-block: 5px ;
+    padding-left: 4px;
+  }
+
+  h1 {
+    margin-left: 10px;
+    font-family:'Times New Roman', Times, serif;
+  }
