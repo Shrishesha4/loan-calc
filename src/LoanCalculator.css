@@ -1,69 +1,519 @@
 .loan-calculator-container {
-    font-size: 18px;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .form-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid gray;
-    padding: 2px;
-    padding-left: 10px;
-  }
-  
-  .form-action {
-    text-align: center;
-  }
-  
-  .calculate-button {
-    color: black;
-    cursor: pointer;
-    transition: opacity .15s ease-in-out,background-color .2s ease-in-out;
-  }
-  
-  .calculate-button:hover {
-    background-color: rgb(221, 165, 0);
-  }
-  
-  .form-input {
-    position: relative;
-  }
-  
-  .form-input input, .form-action input {
-    width: 90%;
-    border-radius: 3px;
-    border: 0px;
-    margin: 10px 0;
-    font-size: 16px;
-    background: #ffb624;
-  }
-  
-  .form-input input {
-    height: 32px;
-  }
-  
-  .form-action input {
-    font-weight: 600;
-    line-height: 40px;
-  }
-  
-  table {
-    width: auto;
-    border-spacing: 20;
-    margin-left: 8px;
-    margin-right: 8px;
-    font-size: small;
-  }
-  
-  th, td {
-    border-bottom: 1px solid #e6e6e6;
-    padding-block: 5px ;
-    padding-left: 4px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 1200px;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 60px;
+}
+
+.calculator-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.input-section {
+  background: #1a2235;
+  padding: 20px;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.chart-item {
+  background: #1a2235;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-item h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #888;
+  text-align: center;
+}
+
+.chart-wrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
   }
 
-  h1 {
-    margin-left: 10px;
-    font-family:'Times New Roman', Times, serif;
+  .chart-item {
+    min-height: 250px;
   }
+}
+
+/* Update media query for mobile view */
+@media screen and (max-width: 1024px) {
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-item {
+    height: 300px;
+  }
+}
+
+.installments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+  padding-bottom: 20px; /* Add padding at bottom */
+  max-height: calc(100vh - 400px); /* Limit height and account for footer */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Add scrollbar styling */
+.installments-list::-webkit-scrollbar {
+  width: 1px;
+}
+
+.installments-list::-webkit-scrollbar-track {
+  background: #1a2235;
+  border-radius: 4px;
+}
+
+.installments-list::-webkit-scrollbar-thumb {
+  background: #ffb624;
+  border-radius: 4px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid gray;
+  padding: 10px;
+}
+
+.form-item label {
+  margin-bottom: 8px;
+}
+
+.form-input {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-input input[type="range"] {
+  flex: 1;
+  height: 1px;
+  background: #ffb624;
+  border-radius: 1px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Webkit (Chrome, Safari, newer versions of Opera) */
+.form-input input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: #ffb624;
+  border: none;
+  border-radius: 1px;
+}
+
+.form-input input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 2px solid #fff;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffb624;
+  cursor: pointer;
+  margin-top: -10px; /* Center the thumb on the track */
+}
+
+/* Firefox */
+.form-input input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: #ffb624;
+  border: none;
+  border-radius: 1px;
+}
+
+.form-input input[type="range"]::-moz-range-thumb {
+  border: 2px solid #fff;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffb624;
+  cursor: pointer;
+}
+
+/* Microsoft Edge */
+.form-input input[type="range"]::-ms-track {
+  height: 1px;
+  background: #ffb624;
+  border: none;
+  border-radius: 1px;
+}
+
+.form-input input[type="range"]::-ms-thumb {
+  border: 2px solid #fff;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffb624;
+  cursor: pointer;
+}
+
+.form-input input[type="number"] {
+  width: 120px;
+  text-align: center;
+}
+
+.form-input input, .form-action input {
+  width: 100%;
+  border-radius: 3px;
+  border: 0px;
+  margin: 10px 0;
+  font-size: 16px;
+  background: #ffb624;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.form-input input {
+  height: 40px;
+}
+
+.form-action input {
+  font-weight: 600;
+  line-height: 40px;
+  max-width: 200px;
+  margin: 20px auto;
+}
+
+.form-action {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.calculate-button {
+  width: 200px;
+  padding: 10px;
+  background: #ffb624;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-button:hover {
+  background: #ffa500;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+  border-spacing: 0;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 12px 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: #0a111e;
+  z-index: 1;
+}
+
+.summary-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+  padding: 15px;
+  background: #1a2235;
+  border-radius: 8px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.summary-item span {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.summary-item strong {
+  font-size: 18px;
+}
+
+.installments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.installment-item {
+  background: #1a2235;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.installment-header {
+  background: #ffb624;
+  color: #000;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+.installment-details {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.installment-details div {
+  display: flex;
+  flex-direction: column;
+}
+
+.installment-details span {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.installment-details strong {
+  font-size: 14px;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.chart-item {
+  background: #1a2235;
+  border-radius: 8px;
+  padding: 15px;
+  height: 300px;
+}
+
+.chart-item h3 {
+  color: #888;
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-item {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .installments-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .loan-calculator-container {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+}
+.error-message {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+.calendar-button {
+  width: 100%;
+  padding: 8px;
+  background: #1a2235;
+  color: #ffb624;
+  border: 1px solid #ffb624;
+  border-radius: 0 0 8px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-button:hover {
+  background: #ffb624;
+  color: #1a2235;
+}
+.summary-calendar-button {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  background: transparent;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a2235;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-content h3 {
+  margin: 0 0 20px 0;
+  color: #fff;
+}
+
+.modal-body {
+  margin-bottom: 20px;
+}
+
+.modal-body label {
+  display: block;
+  margin-bottom: 10px;
+  color: #888;
+}
+
+.modal-body input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #2a3245;
+  background: #0a111e;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-actions button:first-child {
+  background: #2a3245;
+  color: #fff;
+}
+
+.modal-actions button:last-child {
+  background: #ffb624;
+  color: #000;
+}
+.modal-input-group {
+  margin-bottom: 1rem;
+}
+
+.modal-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.modal-input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
