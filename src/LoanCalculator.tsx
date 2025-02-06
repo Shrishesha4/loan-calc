@@ -92,11 +92,22 @@ export default function LoanCalculator() {
     const inputName = name as InputFieldName; // Type assertion for name
     const numValue = parseFloat(value);
     
+    // Clear previous error for this field
+    setErrors(prev => ({ ...prev, [inputName]: '' }));
+    
     // Validate input values
     if (numValue < MIN_VALUES[inputName]) {
+      setErrors(prev => ({
+        ...prev,
+        [inputName]: `Minimum value is ${MIN_VALUES[inputName]}`
+      }));
       return;
     }
     if (numValue > maxValues[inputName]) {
+      setErrors(prev => ({
+        ...prev,
+        [inputName]: `Maximum value is ${maxValues[inputName]}`
+      }));
       return;
     }
 
